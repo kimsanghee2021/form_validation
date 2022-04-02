@@ -5,17 +5,20 @@ btnsSubmit.addEventListener('click',(e)=>{
     if(!isTxt('userid')) e.preventDefault();
 });
 
-//미션 1 - 아이디가 5글자 이상일떄 인증 통과 
-//인증 실패시 경고창이 아닌 input 옆에 '아이디를 입력하세요' 메세지 출력
 function isTxt(name){
     const input = form.querySelector(`[name = ${name}]`);
     const txt = input.value;
     const errMsg = document.createElement('p');
+    errMsg.style.color = 'red';
     const errTxt = input.getAttribute('placeholder');
+    const errMsgs = input.closest('td').querySelectorAll('p');
 
-    if(txt.length > 5){
+
+    if(txt.legnth > 5){
+        if(errMsgs.length > 0)input.closest('td').querySelector('p').remove();
         return true;
-    }else{
+    } else{
+        if(errMsgs.length > 0)input.closest('td').querySelector('p').remove();
         errMsg.innerHTML = errTxt;
         input.closest('td').append(errMsg);
         return false;
