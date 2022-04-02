@@ -6,6 +6,7 @@ btnSubmit.addEventListener('click', (e) => {
 	if (!isEmail('email', 7)) e.preventDefault();
 	if (!isCheck('gender')) e.preventDefault();
     if(!isTxt('comments',10)) e.preventDefault();
+    if(!isSelect('edu'))e.preventDefault();
 });
 
 function isTxt(name, len) {
@@ -68,6 +69,28 @@ function isCheck(name){
         const errMsg = document.createElement('p');
 		errMsg.innerText = '필수 항목을 하나이상 체크해주세요';
 		inputs[0].closest('td').append(errMsg);
+
+		return false;
+    }
+}
+
+function isSelect(name){
+    const sel = document.querySelector(`[name = ${name}]`);
+    const sel_index = sel.options.selectedIndex;
+    const val = sel.options[sel_index].value;
+
+    //selector가 하나라도 잇을떄 
+    if(val!==''){
+        const errMsgs = sel[0].closest('td').querySelectorAll('p');
+        if(errMsgs.length > 0) sel[0].closest('td').querySelector('p').remove();
+        return true;
+    } else{
+        const errMsgs = sel[0].closest('td').querySelectorAll('p');
+        if(errMsgs.length > 0) sel[0].closest('td').querySelector('p').remove();
+
+        const errMsg = document.createElement('p');
+		errMsg.innerText = '최종학력을 체크해주세요';
+		sel.closest('td').append(errMsg);
 
 		return false;
     }
