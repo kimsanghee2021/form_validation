@@ -122,12 +122,12 @@ function isPwd(target01, target02,len){
 		if (errMsgs.length > 0) pwd1.closest('td').querySelector('p').remove();
 		return true;
 	} else{
-		const errMsgs = checks[0].closest('td').querySelectorAll('p');
-		if(errMsgs.length > 0) checks[0].closest('td').querySelector('p').remove();
+		const errMsgs = pwd1.closest('td').querySelectorAll('p');
+		if (errMsgs.length > 0) pwd1.closest('td').querySelector('p').remove();
 
 		const errMsg = document.createElement('p');
-		const errtit = `비밀번호는 ${len}글자 이상, 영문, 숫자, 특수문자를 포함해서 동일하게 입력하세요.`;
-		errMsg.innerText = errtit;
-		checks[0].closest('td').append(errMsg);
+		errMsg.innerText = `비밀번호는 ${len}글자 이상, 영문, 숫자, 특수문자를 포함해서 동일하게 입력하세요.`;
+		pwd1.closest('td').append(errMsg);
+		return false;
 	}
 }
