@@ -5,6 +5,7 @@ btnSubmit.addEventListener('click',(e)=>{
 	if(!isTxt('userid',5)) e.preventDefault();
 	if(!isTxt('email')) e.preventDefault();
 	if(!isSelect('edu')) e.preventDefault();
+	if(!isCheck('gender')) e.preventDefault();
 });
 
 function isTxt(target,len){
@@ -78,3 +79,24 @@ function isSelect(target){
 	}
 }
 
+function isCheck(target){
+	const checks = form.querySelectorAll(`[name = ${target}]`);
+	let isChecked = false;
+
+	//모든 체크 인풋요소를 반복돌며 하나라도 체크되어있으면 isChecked에 true할당
+	for (const check of checks) if (check.checked) isChecked = true;
+
+	if(isChecked){
+		const errMsgs = checks[0].closest('td').querySelectorAll('p');
+		if(errMsgs.length > 0) checks[0].closest('td').querySelector('p').remove();
+		return true;
+	} else{
+		const errMsgs = checks[0].closest('td').querySelectorAll('p');
+		if(errMsgs.length > 0) checks[0].closest('td').querySelector('p').remove();
+
+		const errMsg = document.createElement('p');
+		const errtit = '선택해주세요.';
+		errMsg.innerText = errtit;
+		checks[0].closest('td').append(errMsg);
+	}
+}
