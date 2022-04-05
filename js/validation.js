@@ -6,6 +6,8 @@ btnSubmit.addEventListener('click',(e)=>{
 	if(!isTxt('email')) e.preventDefault();
 	if(!isSelect('edu')) e.preventDefault();
 	if(!isCheck('gender')) e.preventDefault();
+	if(!isCheck('interests')) e.preventDefault();
+	if (!isPwd('pwd1', 'pwd2', 5)) e.preventDefault();
 });
 
 function isTxt(target,len){
@@ -96,6 +98,35 @@ function isCheck(target){
 
 		const errMsg = document.createElement('p');
 		const errtit = '선택해주세요.';
+		errMsg.innerText = errtit;
+		checks[0].closest('td').append(errMsg);
+	}
+}
+
+function isPwd(target01, target02,len){
+	const pwd1 = document.querySelector(`[name=${target01}]`);
+	const pwd2 = document.querySelector(`[name=${target02}]`);
+	const pwd1_val = pwd1.value;
+	const pwd2_val = pwd2.value;
+
+	const num = /[0-9]/;
+	const eng = /[a-zA-Z]/;
+	const spc = /[~!@#$%^&*()_+\]]/;
+
+	if(pwd1_val === pwd2_val &&
+		pwd1_val.length > len &&
+		num.test(pwd1_val) &&
+		eng.test(pwd1_val) &&
+		spc.test(pwd1_val)){
+		const errMsgs = pwd1.closest('td').querySelectorAll('p');
+		if (errMsgs.length > 0) pwd1.closest('td').querySelector('p').remove();
+		return true;
+	} else{
+		const errMsgs = checks[0].closest('td').querySelectorAll('p');
+		if(errMsgs.length > 0) checks[0].closest('td').querySelector('p').remove();
+
+		const errMsg = document.createElement('p');
+		const errtit = `비밀번호는 ${len}글자 이상, 영문, 숫자, 특수문자를 포함해서 동일하게 입력하세요.`;
 		errMsg.innerText = errtit;
 		checks[0].closest('td').append(errMsg);
 	}
